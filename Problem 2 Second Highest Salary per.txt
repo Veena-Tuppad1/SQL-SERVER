@@ -1,0 +1,26 @@
+Problem 2: Second Highest Salary per Department
+
+Requirement:
+Find the second highest salary in each department.
+
+Table: Employees
+
+| emp_id | emp_name | department | salary |
+| -----: | -------- | ---------- | -----: |
+|    101 | Anil     | IT         |  95000 |
+|    102 | Sunita   | IT         |  88000 |
+|    103 | Ramesh   | IT         |  72000 |
+|    104 | Meera    | HR         |  78000 |
+|    105 | Kiran    | HR         |  69000 |
+
+
+With T1 as
+(
+ Select e.*,DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS RNK  FROM Employees e
+)
+
+select * from T1 where RNK=2 
+
+
+-----------------------------------------------------------------
+

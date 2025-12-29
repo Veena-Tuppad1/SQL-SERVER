@@ -1,0 +1,59 @@
+Problem 4: Top 3 Products by Sales per Month
+
+Requirement:
+For each month, find the top 3 products by total sales amount.
+
+Table: Sales
+
+| product_id | sale_date  | amount |
+| ---------: | ---------- | -----: |
+|        101 | 2025-01-05 |   5000 |
+|        101 | 2025-01-20 |   7000 |
+|        102 | 2025-01-10 |   9000 |
+|        103 | 2025-01-15 |   6000 |
+
+
+
+With T1 as
+(
+  Select product_id,Month(sale_date) as mon, SUM(amount) as total_sales from Sales Group By product_id,Month(sale_date)
+),
+
+T2 as
+(
+ Select T1.*,DENSE_RANK() OVER(PARTITION BY mon order by total_sales desc) as RNK from T1
+)
+
+select * from T2 where RNK<4
+
+
+---------------------------------------
+WITH T1 AS
+(
+    SELECT 
+        product_id,
+        YEAR(sale_date) AS sale_year,
+        MONTH(sale_date) AS sale_month,
+        SUM(amount) AS total_sales
+    FROM Sales
+    GROUP BY 
+        product_id,
+        YEAR(sale_date),
+        MONTH(sale_date)
+),
+T2 AS
+(
+    SELECT 
+        T1.*,
+        DENSE_RANK() OVER 
+        (
+            PARTITION BY sale_year, sale_month 
+            ORDER BY total_sales DESC
+        ) AS RNK
+    FROM T1
+)
+SELECT *
+FROM T2
+WHERE RNK <= 3;
+
+

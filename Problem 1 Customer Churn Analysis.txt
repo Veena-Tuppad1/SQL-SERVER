@@ -1,0 +1,34 @@
+Problem 1: Customer Churn Analysis
+
+Requirement:
+Find customers who have not made any transaction in the last 6 months.
+
+Table: Transactions
+
+| customer_id | transaction_date |
+| ----------: | ---------------- |
+|           1 | 2025-12-05       |
+|           2 | 2025-07-10       |
+|           3 | 2025-03-15       |
+|           4 | 2024-12-01       |
+
+
+With T1 as
+(
+  select customer_id,Max(transaction_date) as maxdate from Transactions Group By customer_id
+)
+
+select * from T1 where maxdate<DATEADD(Month,-6,GETDATE())
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+SELECT 
+    customer_id,
+    MAX(transaction_date) AS last_transaction_date
+FROM Transactions
+GROUP BY customer_id
+HAVING MAX(transaction_date) < DATEADD(MONTH, -6, CAST(GETDATE() AS DATE));

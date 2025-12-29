@@ -1,0 +1,13 @@
+Problem 3: Find Missing Order IDs
+
+Requirement:
+Order IDs should be continuous. Identify missing order IDs.
+
+Table: Orders
+
+| order_id |
+| -------: |
+|     1001 |
+|     1002 |
+|     1004 |
+|     1007 |

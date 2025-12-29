@@ -1,0 +1,24 @@
+Problem 6: Find Duplicate Customers
+
+Requirement:
+Identify customers with duplicate email IDs.
+
+Table: Customers
+
+| customer_id | name   | email                                       |
+| ----------: | ------ | ------------------------------------------- |
+|           1 | Anil   | [anil@gmail.com](mailto:anil@gmail.com)     |
+|           2 | Sunita | [sunita@gmail.com](mailto:sunita@gmail.com) |
+|           3 | Anil | [anil@gmail.com](mailto:anil@gmail.com)     |
+
+
+Select email,count(*) from Customers group by email having count(*)>1
+
+
+
+----------------
+
+With T1 as(
+select c.*,ROW_NUMBER() OVER(PARTITION BY email order by customer_id) as Rnk from Customers
+)
+select * from T1 where Rnk>1

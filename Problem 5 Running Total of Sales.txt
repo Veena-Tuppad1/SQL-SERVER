@@ -1,0 +1,30 @@
+Problem 5: Running Total of Sales
+
+Requirement:
+Calculate running total of daily sales.
+
+Table: Daily_Sales
+
+| sale_date  | amount |
+| ---------- | -----: |
+| 2025-01-01 |   2000 |
+| 2025-01-02 |   3000 |
+| 2025-01-03 |   1500 |
+
+
+Select d.*,SUM(amount) over(order by sale_date) as running_total from Daily_Sales d
+
+ 
+
+------------------------------
+
+
+SELECT 
+    d.*,
+    SUM(amount) OVER 
+    (
+        ORDER BY sale_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM Daily_Sales d;
+

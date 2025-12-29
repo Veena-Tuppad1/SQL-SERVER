@@ -1,0 +1,36 @@
+Problem 7: Salary Greater Than Department Average
+
+Requirement:
+Find employees whose salary is greater than their department average.
+
+Table: Employees
+
+| emp_id | emp_name | department | salary |
+
+
+
+With T1 as
+(
+  Select department,avg(salary) as avgsalary from Employees Group By department
+)
+
+Select e.* from Employees e Inner Join T1 on e.department=T1.department where e.salary>T1.avgsalary
+
+
+
+
+
+
+----------------------------------------------------------------
+
+SELECT emp_id,
+       emp_name,
+       department,
+       salary
+FROM
+(
+    SELECT *,
+           AVG(salary) OVER (PARTITION BY department) AS dept_avg_salary
+    FROM Employees
+) t
+WHERE salary > dept_avg_salary;

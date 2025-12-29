@@ -1,0 +1,27 @@
+Problem 9: Month-over-Month Growth
+
+Requirement:
+Calculate month-over-month sales growth percentage.
+
+Table: Monthly_Sales
+
+
+| sales_month   | total_sales |
+| ------- | ----------: |
+| 01-2024-11 |      200000 |
+| 03-2024-12 |      240000 |
+| 04-2025-01 |      300000 |
+
+
+With T1 as
+(
+ select FORMAT(sales_month,'yyyy-MM') as mon,SUM(total_sales) as sumsales from  Monthly_Sales Group By FORMAT(sales_month,'yyyy-MM')
+),
+
+T2 as
+(
+  select T1.*,LAG(sumsales) over(order by mon) as prevsales from T1
+)
+Select T2.*,CASE WHEN prevsales IS NULL THEN NULL
+                 ELSE ROUND((sumsales-prevsales)*100.0/prevsales,2) end as MOMperc
+from T2

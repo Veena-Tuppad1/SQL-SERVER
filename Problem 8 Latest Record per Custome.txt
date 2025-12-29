@@ -1,0 +1,36 @@
+Problem 8: Latest Record per Customer
+
+Requirement:
+Fetch the latest transaction for each customer.
+
+Table: Transactions
+
+| customer_id | transaction_date | amount |
+
+
+
+With T1 as
+(
+ Select t.*,DENSE_RANK() OVER(PARTITION BY customer_id ORDER BY transaction_date desc) as RNK from Transactions t
+)
+
+Select * from T1 where RNK=1
+
+
+
+-------------------------------------------------
+Alternative 2: Using MAX() + JOIN
+
+SELECT t.customer_id,
+       t.transaction_date,
+       t.amount
+FROM Transactions t
+JOIN
+(
+    SELECT customer_id,
+           MAX(transaction_date) AS max_date
+    FROM Transactions
+    GROUP BY customer_id
+) m
+  ON t.customer_id = m.customer_id
+ AND t.transaction_date = m.max_date;

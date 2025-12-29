@@ -1,0 +1,26 @@
+Identify orders with missing customer data.
+
+Customers
+
+| customer_id | customer_name | email                                       |
+| ----------: | ------------- | ------------------------------------------- |
+|           1 | Anil          | [anil@gmail.com](mailto:anil@gmail.com)     |
+|           2 | Sunita        | [sunita@gmail.com](mailto:sunita@gmail.com) |
+|           3 | Ramesh        | [ramesh@gmail.com](mailto:ramesh@gmail.com) |
+|           4 | Priya         | [priya@gmail.com](mailto:priya@gmail.com)   |
+
+
+Orders
+
+| order_id | customer_id | order_date | amount |
+| -------: | ----------: | ---------- | -----: |
+|      101 |           1 | 2025-01-05 |    500 |
+|      102 |           2 | 2025-01-10 |    700 |
+|      103 |           5 | 2025-01-15 |    300 |
+|      104 |        NULL | 2025-01-20 |    200 |
+|      105 |           3 | 2025-01-25 |    450 |
+|      106 |           6 | 2025-01-30 |    600 |
+
+
+
+Select o.* from Orders o Left Join Customers c on o.customer_id=c.customer_id where c.customer_id is null

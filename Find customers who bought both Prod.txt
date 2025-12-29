@@ -1,0 +1,20 @@
+Find customers who bought both Product A and Product B.
+
+sales_orders
+
+| order_id | customer_id | customer_name | product_name | order_date |
+| -------: | ----------: | ------------- | ------------ | ---------- |
+|     1001 |           1 | Anil          | Product A    | 2024-01-10 |
+|     1002 |           1 | Anil          | Product B    | 2024-02-15 |
+|     1003 |           2 | Sunita        | Product A    | 2024-01-20 |
+|     1004 |           3 | Ramesh        | Product B    | 2024-03-05 |
+|     1005 |           3 | Ramesh        | Product A    | 2024-03-10 |
+|     1006 |           4 | Priya         | Product C    | 2024-04-01 |
+|     1007 |           5 | Kavya         | Product A    | 2024-04-10 |
+|     1008 |           5 | Kavya         | Product B    | 2024-04-12 |
+|     1009 |           5 | Kavya         | Product B    | 2024-04-15 |
+
+
+
+
+Select s.customer_id,s.customer_name from sales_orders s where s.product_name IN ('Product A','Product B') Group By s.customer_id,s.customer_name  Having count(distinct  product_name)=2

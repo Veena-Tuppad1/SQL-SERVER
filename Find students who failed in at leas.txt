@@ -1,0 +1,24 @@
+Find students who failed in at least two subjects.
+
+Student_Marks
+
+| student_id | student_name | subject | marks |
+| ---------: | ------------ | ------- | ----: |
+|          1 | Anil         | Math    |    35 |
+|          1 | Anil         | Science |    28 |
+|          1 | Anil         | English |    62 |
+|          2 | Sunita       | Math    |    55 |
+|          2 | Sunita       | Science |    32 |
+|          2 | Sunita       | English |    30 |
+|          3 | Ramesh       | Math    |    40 |
+|          3 | Ramesh       | Science |    45 |
+|          3 | Ramesh       | English |    38 |
+|          4 | Priya        | Math    |    25 |
+|          4 | Priya        | Science |    29 |
+|          4 | Priya        | English |    31 |
+|          5 | Kavya        | Math    |    70 |
+|          5 | Kavya        | Science |    65 |
+|          5 | Kavya        | English |    72 |
+
+
+Select student_id,student_name,count(*) from Student_Marks where marks<40 Group By student_id,student_name having count(*)>1

@@ -1,0 +1,17 @@
+Get employees working on multiple projects.
+
+Employee_Projects
+
+| emp_id | emp_name | project_name        |
+| -----: | -------- | ------------------- |
+|    101 | Anil     | ERP System          |
+|    101 | Anil     | CRM Upgrade         |
+|    102 | Sunita   | Website Revamp      |
+|    103 | Ramesh   | Data Warehouse      |
+|    103 | Ramesh   | ERP System          |
+|    103 | Ramesh   | Analytics Dashboard |
+|    104 | Priya    | Mobile App          |
+|    105 | Kavya    | Website Revamp      |
+
+
+Select emp_id,emp_name,count(distinct project_name) as counts from Employee_Projects Group By emp_id,emp_name having count(distinct project_name)>1

@@ -1,0 +1,21 @@
+Retrieve latest record per group.
+
+orders
+
+| order_id | customer_id | order_date | amount | status    |
+| -------: | ----------: | ---------- | -----: | --------- |
+|     1001 |           1 | 2024-01-10 |    500 | Placed    |
+|     1002 |           1 | 2024-02-05 |    700 | Shipped   |
+|     1003 |           1 | 2024-03-01 |    700 | Delivered |
+|     1004 |           2 | 2024-01-15 |    300 | Placed    |
+|     1005 |           2 | 2024-02-20 |    450 | Cancelled |
+|     1006 |           3 | 2024-01-25 |    600 | Placed    |
+
+
+With T1 as
+(
+  select customer_id,Max(order_date) as recent_date from orders group by customer_id
+)
+
+
+  select T1.*,o.* from T1 join orders o on T1.customer_id=o.customer_id and T1.recent_date=o.order_date

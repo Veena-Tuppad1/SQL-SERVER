@@ -1,0 +1,37 @@
+| Find managers with more than 5 reportees.
+
+
+emp_id | emp_name | manager_id |
+| -----: | -------- | ---------- |
+|    101 | Anil     | 105        |
+|    102 | Sunita   | 105        |
+|    103 | Ramesh   | 105        |
+|    104 | Priya    | 105        |
+|    105 | Kavya    | NULL       |
+|    106 | Manoj    | NULL       |
+|    107 | Ravi     | 106        |
+|    108 | Neha     | 106        |
+|    109 | Arjun    | 106        |
+|    110 | Pooja    | 106        |
+|    111 | Deepak   | 106        |            
+|    112 | Sita     | 106        |
+
+
+
+| emp_id | emp_name | manager_id |
+| -----: | -------- | ---------- |
+|    101 | Anil     | 105        |
+|    102 | Sunita   | 105        |
+|    103 | Ramesh   | 105        |
+|    104 | Priya    | 105        |
+|    105 | Kavya    | NULL       |
+|    106 | Manoj    | NULL       |
+|    107 | Ravi     | 106        |
+|    108 | Neha     | 106        |
+|    109 | Arjun    | 106        |
+|    110 | Pooja    | 106        |
+|    111 | Deepak   | 106        |
+|    112 | Sita     | 106        |
+
+
+Select m.emp_id as manager_id, m.emp_name as manager_name, count(e.emp_id) as count1 from employee e Join employee m on e.manager_id=m.emp_id Group By m.emp_id,m.emp_name having count(e.emp_id)>5

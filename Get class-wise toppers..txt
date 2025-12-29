@@ -1,0 +1,51 @@
+Get class-wise toppers.
+
+students
+
+| student_id | student_name |
+| ---------: | ------------ |
+|          1 | Anil         |
+|          2 | Sunita       |
+|          3 | Ramesh       |
+|          4 | Priya        |
+|          5 | Kavya        |
+|          6 | Manoj        |
+
+
+marks
+
+| student_id | class | subject | marks |
+| ---------: | ----- | ------- | ----: |
+|          1 | 10A   | Math    |    85 |
+|          1 | 10A   | Science |    90 |
+|          2 | 10A   | Math    |    92 |
+|          2 | 10A   | Science |    88 |
+|          3 | 10A   | Math    |    92 |
+|          3 | 10A   | Science |    88 |
+|          4 | 10B   | Math    |    78 |
+|          4 | 10B   | Science |    82 |
+|          5 | 10B   | Math    |    90 |
+|          5 | 10B   | Science |    95 |
+|          6 | 10B   | Math    |    90 |
+|          6 | 10B   | Science |    95 |
+
+
+With T1 as
+(
+  Select s.*,m.class,m.subject,m.marks from students s Left Join marks m on s.student_id=m.student_id
+),
+
+T2 as
+(
+  select class,student_id,student_name ,sum(marks) as totalmarks from T1 Group By class,student_id,student_name
+),
+
+T3 as
+(
+  Select T2.*,DENSE_RANK() OVER(PARTITION BY class order by totalmarks desc) as rnk from T2
+)
+select * from T3 where T3.rnk=1
+
+
+
+

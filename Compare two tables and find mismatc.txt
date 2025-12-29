@@ -1,0 +1,42 @@
+Compare two tables and find mismatched rows.
+
+employees_source
+
+| emp_id | emp_name | salary | dept |
+| -----: | -------- | -----: | ---- |
+|    101 | Anil     |  50000 | IT   |
+|    102 | Sunita   |  60000 | HR   |
+|    103 | Ramesh   |  55000 | IT   |
+|    104 | Priya    |  58000 | FIN  |
+|    105 | Kavya    |  62000 | IT   |
+
+
+employees_target
+
+| emp_id | emp_name | salary | dept |
+| -----: | -------- | -----: | ---- |
+|    101 | Anil     |  50000 | IT   |
+|    102 | Sunita   |  65000 | HR   |
+|    103 | Ramesh   |  55000 | IT   |
+|    105 | Kavya    |  62000 | HR   |
+|    106 | Manoj    |  70000 | IT   |
+
+
+Select COALESCE(s.emp_id,t.emp_id) as empid,
+       s.emp_name as sourcename,
+       t.emp_name as targetname,
+       s.salary as sourcesalary,
+       t.salary as targetsalary,
+       s.dept as sourcedept,
+       t.dept as targetdept,
+       Case When s.emp_id is null then 'Missing source empid'
+            When t.emp_id is null then 'Missing target empid'
+            when s.salary<>t.salary then 'salary mismatch'
+            when s.dept<>t.dept then 'dept mismatch'
+            else 'Matched'
+       end as Matched_Status
+
+From employees_source s Full outer join 
+employees_target t on s.emp_id=t.emp_id where s.emp_id is null or t.emp_id is null or s.salary<>t.salary or s.dept<>t.dept
+ 
+

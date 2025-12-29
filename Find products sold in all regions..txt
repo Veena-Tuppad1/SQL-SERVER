@@ -1,0 +1,33 @@
+Find products sold in all regions.
+
+Sales Table
+
+| product_id | product_name | region |
+| ---------: | ------------ | ------ |
+|        101 | Laptop       | North  |
+|        101 | Laptop       | South  |
+|        101 | Laptop       | East   |
+|        101 | Laptop       | West   |
+|        102 | Phone        | North  |
+|        102 | Phone        | South  |
+|        103 | Tablet       | North  |
+|        103 | Tablet       | South  |
+|        103 | Tablet       | East   |
+
+
+
+Select product_id,product_name,count(distinct region) as counts from sales Group By product_id,product_name having count(distinct region)=4
+
+
+-------------------
+Another method
+
+SELECT 
+    product_id,
+    product_name
+FROM Sales
+GROUP BY product_id, product_name
+HAVING COUNT(DISTINCT region) = (
+    SELECT COUNT(DISTINCT region)
+    FROM Sales
+);

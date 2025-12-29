@@ -1,0 +1,18 @@
+Identify records where a date column is missing (NULL).
+
+ORDERS
+
+
+| order_id | customer_id | order_date | order_amount |
+| -------: | ----------: | ---------- | -----------: |
+|     1001 |           1 | 2024-01-10 |        12000 |
+|     1002 |           2 | NULL       |        18000 |
+|     1003 |           3 | 2024-02-05 |         9500 |
+|     1004 |           4 | NULL       |        22000 |
+|     1005 |           5 | 2024-03-18 |        17000 |
+|     1006 |           6 | NULL       |        14000 |
+|     1007 |           7 | 2024-04-02 |        21000 |
+
+
+
+Select * from ORDERS where order_date is null;

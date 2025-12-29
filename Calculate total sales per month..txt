@@ -1,0 +1,38 @@
+Calculate total sales per month.
+
+CUSTOMERS
+
+| customer_id | customer_name |
+| ----------: | ------------- |
+|           1 | Anil          |
+|           2 | Sunita        |
+|           3 | Ramesh        |
+|           4 | Priya         |
+|           5 | Kavya         |
+
+
+SALES
+
+| sale_id | customer_id | sale_date  | sale_amount |
+| ------: | ----------: | ---------- | ----------: |
+|    1001 |           1 | 2024-01-05 |       12000 |
+|    1002 |           2 | 2024-01-15 |       18000 |
+|    1003 |           3 | 2024-01-28 |        9500 |
+|    1004 |           1 | 2024-02-03 |       15000 |
+|    1005 |           4 | 2024-02-18 |       22000 |
+|    1006 |           5 | 2024-02-25 |       17000 |
+|    1007 |           2 | 2024-03-06 |       14000 |
+|    1008 |           3 | 2024-03-19 |       21000 |
+|    1009 |           1 | 2024-03-29 |       16000 |
+|    1010 |           4 | 2024-04-10 |       19500 |
+|    1011 |           5 | 2024-04-22 |       23000 |
+|    1012 |           2 | 2024-04-28 |       12500 |
+
+
+With T1 as
+(
+
+   select c.*,s.sale_id,s.sale_date,s.sale_amount from CUSTOMERS c Left Join SALES s on c.customer_id=s.customer_id 
+)
+
+  Select FORMAT(sale_date,'yyyy-MM') as Month,SUM(sale_amount) from T1 Group By FORMAT(sale_date,'yyyy-MM')

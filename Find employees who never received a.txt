@@ -1,0 +1,32 @@
+Find employees who never received a bonus.
+
+EMPLOYEES
+
+| emp_id | emp_name | department | hire_date  |
+| -----: | -------- | ---------- | ---------- |
+|    101 | Anil     | IT         | 2019-03-15 |
+|    102 | Sunita   | IT         | 2020-07-10 |
+|    103 | Ramesh   | HR         | 2018-01-20 |
+|    104 | Priya    | HR         | 2021-09-05 |
+|    105 | Kavya    | Finance    | 2017-11-12 |
+|    106 | Rohit    | Finance    | 2022-02-01 |
+|    107 | Meena    | IT         | 2019-06-25 |
+|    108 | Amit     | HR         | 2020-12-18 |
+
+
+BONUSES
+
+
+| bonus_id | emp_id | bonus_amount | bonus_year |
+| -------: | -----: | -----------: | ---------: |
+|      201 |    101 |         5000 |       2020 |
+|      202 |    101 |         7000 |       2022 |
+|      203 |    103 |         6000 |       2019 |
+|      204 |    105 |        10000 |       2021 |
+|      205 |    107 |         8000 |       2023 |
+
+
+
+
+select e.*,b.bonus_id,b.bonus_amount,b.bonus_year from EMPLOYEES e Left Join BONUSES b on e.emp_id=b.emp_id  where b.emp_id is null;
+

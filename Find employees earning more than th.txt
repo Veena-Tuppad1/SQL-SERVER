@@ -1,0 +1,17 @@
+Find employees earning more than their manager.
+
+Employee
+
+| emp_id | emp_name | manager_id | salary |
+| -----: | -------- | ---------: | -----: |
+|      1 | Anil     |       NULL |  90000 |
+|      2 | Sunita   |          1 |  60000 |
+|      3 | Ramesh   |          1 |  95000 |
+|      4 | Priya    |          2 |  55000 |
+|      5 | Kavya    |          2 |  65000 |
+|      6 | Ajay     |          3 |  70000 |
+
+
+
+
+select e1.emp_id as employeeid,e1.emp_name as EmployeeName,e1.salary as EmployeeSalary from Employee e1  Join Employee e2 on e1.manager_id=e2.emp_id and e1.salary>e2.salary

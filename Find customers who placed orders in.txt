@@ -1,0 +1,36 @@
+Find customers who placed orders in 2024 but not in 2025.
+
+Customers
+
+| customer_id | customer_name |
+| ----------: | ------------- |
+|           1 | Anil          |
+|           2 | Sunita        |
+|           3 | Ramesh        |
+|           4 | Priya         |
+|           5 | Kavya         |
+|           6 | Rohit         |
+
+
+ORDERS
+
+
+| order_id | customer_id | order_date |
+| -------: | ----------: | ---------- |
+|      101 |           1 | 2024-01-15 |
+|      102 |           1 | 2025-02-10 |
+|      103 |           2 | 2024-03-22 |
+|      104 |           2 | 2024-11-05 |
+|      105 |           3 | 2025-01-19 |
+|      106 |           4 | 2024-07-30 |
+|      107 |           5 | 2024-12-18 |
+|      108 |           6 | 2023-10-10 |
+
+
+
+With T1 as
+(
+  select c.*,o.order_id,o.order_date from Customers c Inner Join Orders o on c.customer_id=o.customer_id where YEAR(order_date)=2024
+)
+
+select T1.*,o.order_date from T1 Left Join orders o on T1.customer_id=o.customer_id and Year(o.order_date)=2025 where o.order_date is null

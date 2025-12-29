@@ -1,0 +1,22 @@
+Retrieve duplicate records from a table based on email.
+
+| user_id | user_name | email                                       |
+| ------: | --------- | ------------------------------------------- |
+|       1 | Anil      | [anil@gmail.com](mailto:anil@gmail.com)     |
+|       2 | Sunita    | [sunita@gmail.com](mailto:sunita@gmail.com) |
+|       3 | Ramesh    | [ramesh@gmail.com](mailto:ramesh@gmail.com) |
+|       4 | Kavya     | [kavya@gmail.com](mailto:kavya@gmail.com)   |
+|       5 | Priya     | [anil@gmail.com](mailto:anil@gmail.com)     |
+|       6 | Ajay      | [sunita@gmail.com](mailto:sunita@gmail.com) |
+|       7 | Neha      | [neha@gmail.com](mailto:neha@gmail.com)     |
+|       8 | Rohit     | [kavya@gmail.com](mailto:kavya@gmail.com)   |
+
+
+
+
+select * from employee where email in (
+Select email from employee Group By email having count(*)>1)
+
+
+
+

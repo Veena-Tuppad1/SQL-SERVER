@@ -1,0 +1,42 @@
+Find the second highest salary from an employee table.--I JUST NEED TABLE
+
+
+Below is a simple **EMPLOYEE** table you can use for this problem:
+
+**EMPLOYEE**
+
+| emp_id | emp_name | salary |
+| -----: | -------- | -----: |
+|      1 | Anil     |  50000 |
+|      2 | Sunita   |  70000 |
+|      3 | Ramesh   |  60000 |
+|      4 | Priya    |  80000 |
+|      5 | Kavya    |  70000 |
+
+(Highest salary = 80000, Second highest salary = 70000)
+
+1st Method
+select max(salary) from employee where salary<(Select Max(salary) from employee)
+
+
+2nd Method
+
+With T as
+(select Distinct top 2 salary from employee order by salary desc)
+
+select top 1 salary from T order by salary
+
+
+3rd Method
+
+With T as
+(select Distinct top 2 salary from employee order by salary desc)
+
+select  Min(salary) from T
+
+
+
+
+
+
+

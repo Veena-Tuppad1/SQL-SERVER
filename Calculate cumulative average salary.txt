@@ -1,0 +1,19 @@
+Calculate cumulative average salary by hire date.
+
+EMPLOYEES
+
+| emp_id | emp_name | department | hire_date  | salary |
+| -----: | -------- | ---------- | ---------- | -----: |
+|    101 | Anil     | IT         | 2022-01-10 |  50000 |
+|    102 | Sunita   | HR         | 2022-02-05 |  55000 |
+|    103 | Ramesh   | IT         | 2022-03-12 |  60000 |
+|    104 | Priya    | Finance    | 2022-04-20 |  65000 |
+|    105 | Kavya    | HR         | 2022-05-18 |  62000 |
+|    106 | Arjun    | IT         | 2022-06-25 |  70000 |
+|    107 | Neha     | Sales      | 2022-07-08 |  58000 |
+|    108 | Rohit    | Finance    | 2022-08-14 |  72000 |
+|    109 | Meera    | Sales      | 2022-09-30 |  61000 |
+|    110 | Kiran    | IT         | 2022-10-22 |  75000 |
+
+
+Select e.*,avg(salary) over(order by hire_date) as cum_avg from EMPLOYEES e;

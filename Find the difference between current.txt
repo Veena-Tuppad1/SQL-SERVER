@@ -1,0 +1,46 @@
+Find the difference between current and previous month sales.
+
+SALES
+
+| sale_id | sale_date  | sale_amount |
+| ------: | ---------- | ----------: |
+|    2001 | 2023-11-05 |       15000 |
+|    2002 | 2023-11-18 |       22000 |
+|    2003 | 2023-12-07 |       18000 |
+|    2004 | 2023-12-20 |       26000 |
+|    2005 | 2024-01-06 |       20000 |
+|    2006 | 2024-01-21 |       28000 |
+|    2007 | 2024-02-04 |       24000 |
+|    2008 | 2024-02-19 |       31000 |
+|    2009 | 2024-03-08 |       27000 |
+|    2010 | 2024-03-25 |       35000 |
+|    2011 | 2024-04-10 |       30000 |
+|    2012 | 2024-04-22 |       38000 |
+|    2013 | 2025-01-09 |       42000 |
+|    2014 | 2025-01-27 |       46000 |
+|    2015 | 2025-02-11 |       44000 |
+|    2016 | 2025-02-26 |       52000 |
+
+
+With T1 as
+(
+  select FORMAT(sale_date,'yyyy-MM')  as month,SUM(sale_amount) as totalsum from Sales Group By FORMAT(sale_date,'yyyy-MM')
+),
+
+ T2 as
+(
+  Select T1.*,LAG(totalsum,1,0) OVER(ORDER BY month) AS PREV_MONTH_SALES FROM T1
+)
+
+Select T2.*,(totalsum-PREV_MONTH_SALES) as difference from T2
+
+
+
+
+
+
+-------------------------------------------------------
+DATEFROMPARTS ( year, month, day )
+
+
+ 

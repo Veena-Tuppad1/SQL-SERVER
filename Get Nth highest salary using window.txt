@@ -1,0 +1,28 @@
+Get Nth highest salary using window functions.
+
+EMPLOYEES
+
+| emp_id | emp_name | department | salary |
+| ------ | -------- | ---------- | ------ |
+| 101    | Anil     | IT         | 95000  |
+| 102    | Sunita   | IT         | 88000  |
+| 103    | Ramesh   | IT         | 72000  |
+| 104    | Priya    | IT         | 70000  |
+| 201    | Rohit    | HR         | 60000  |
+| 202    | Meena    | HR         | 55000  |
+| 203    | Amit     | HR         | 50000  |
+| 301    | Arjun    | Finance    | 110000 |
+| 302    | Sneha    | Finance    | 98000  |
+| 303    | Kiran    | Finance    | 85000  |
+| 304    | Pooja    | Finance    | 80000  |
+| 401    | Vikas    | Sales      | 70000  |
+| 402    | Neha     | Sales      | 65000  |
+| 403    | Kavya    | Sales      | 60000  |
+
+
+With T1 as
+(
+ select e.*,DENSE_RANK() OVER(ORDER BY SALARY DESC) AS RNK FROM EMPLOYEES e
+)
+
+SELECT * FROM T1 WHERE RNK=N

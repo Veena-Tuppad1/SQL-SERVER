@@ -1,0 +1,22 @@
+Detect gaps in sequence numbers.
+
+Orders
+
+| order_id | order_date | customer_name |
+| -------: | ---------- | ------------- |
+|     1001 | 2024-01-01 | Anil          |
+|     1002 | 2024-01-02 | Sunita        |
+|     1003 | 2024-01-03 | Ramesh        |
+|     1005 | 2024-01-05 | Priya         |
+|     1006 | 2024-01-06 | Kavya         |
+|     1009 | 2024-01-09 | Rohit         |
+|     1010 | 2024-01-10 | Neha          |
+|     1012 | 2024-01-12 | Amit          |
+
+
+With T1 as
+(
+  Select o.*,Lag(order_id) over(order by order_id) as prev_order_id from Orders o
+)
+
+Select T1.* ,(prev_order_id+1) as mis_fir,(order_id-1) as mis_lst from T1 where prev_order_id is not null and  (order_id-prev_order_id)>1

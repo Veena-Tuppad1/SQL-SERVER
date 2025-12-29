@@ -1,0 +1,16 @@
+13. Find class-wise subject toppers and rank them
+Tables
+
+student (st_id, name, class)
+marks (st_id, sub, marks)
+
+Question
+Write a query to rank students within each class and subject based on marks.
+
+
+With T1 as
+(
+ Select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id
+)
+
+select T1.*,DENSE_RANK() OVER(PARTITION BY class,sub order by marks desc) as rnk from T1

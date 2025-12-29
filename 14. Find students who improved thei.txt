@@ -1,0 +1,20 @@
+14. Find students who improved their marks across subjects
+
+(Assume subjects are taken in sequence)
+
+Tables
+
+marks (st_id, sub,sub_order, marks)
+
+Question
+Write a query to find students whose marks increased from one subject to the next.
+
+
+
+With T1 as(
+
+Select m.*,Lag(marks) Over(Partition by st_id order by sub_order) as prev_marks from marks m
+)
+
+Select st_id from T1 Group By st_id Having Min(marks-prev_marks)>0
+

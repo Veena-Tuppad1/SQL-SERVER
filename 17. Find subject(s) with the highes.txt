@@ -1,0 +1,23 @@
+17. Find subject(s) with the highest failure rate
+Tables
+
+marks (st_id, sub, mark)
+
+Question
+Write a query to find the subject(s) with the maximum number of students scoring below 35.
+
+
+With T1 as(
+select sub,count(*) as subcount from marks where mark<35 Group By sub 
+)
+
+T2 as
+(
+Select Max(subcount) as maxcount from T1
+)
+
+select T1.* from T2 left join T1 on T2.maxcount=T1.subcount
+
+
+
+

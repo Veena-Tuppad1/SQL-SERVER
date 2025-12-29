@@ -1,0 +1,32 @@
+15. Find the percentage contribution of each subject to a student’s total marks
+Tables
+
+marks (st_id, sub, marks)
+
+Question
+Write a query to calculate percentage contribution of each subject to the student’s total marks.
+
+
+With T1 as 
+(
+  select m.*,sum(marks) over(Partition By st_id) as totalmarks from marks m
+)
+
+select st_id,sub,marks,ROUND(marks*100.0/totalmarks,2) as perc_con from T1
+
+
+
+
+Another method
+
+With T1 as
+(
+  select st_id,sum(marks) as totalmarks from marks Group By st_id
+)
+
+select m.*,ROUND(m.marks*100.0/t.totalmarks,2) as perc_cont from marks m Left Join T1 t on m.st_id=t.st_id;
+
+
+
+
+

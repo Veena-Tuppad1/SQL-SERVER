@@ -1,0 +1,29 @@
+10. Subject topper across all classes
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to find the top scorer for each subject across all classes.
+
+
+st_id name class sub marks
+
+
+With T1 as(
+select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id
+),
+
+T2 as
+(
+select T1.*,DENSE_RANK() OVER(PARTITION BY sub order by marks desc) as rnk from T1
+)
+
+select * from T2 where rnk=1
+
+
+

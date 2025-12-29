@@ -1,0 +1,20 @@
+8. Students who failed in at least two subject (marks < 35)
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to find students who failed in one or more subjects.
+
+
+With T1 as(
+Select s.*,m.sub,m.marks from student s left join marks m on s.st_id=m.st_id
+)
+
+
+Select st_id,name,count(*) from T1 where marks<35 group by st_id,name having count(*)>=2
+ 

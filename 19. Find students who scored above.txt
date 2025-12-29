@@ -1,0 +1,16 @@
+19. Find students who scored above average in all subjects
+Tables
+
+marks (st_id, sub, marks)
+
+Question
+Write a query to find students who scored above the average marks of each subject.
+
+
+With T1 as(
+select sub,avg(marks) as avgmarks from marks group by sub
+)
+
+
+select m.st_id from marks m left join T1 t on m.sub=t.sub group by m.st_id having sum(case when marks<=avgmarks then 1 else 0 end)=0
+

@@ -1,0 +1,21 @@
+9. Rank students by total marks within each class
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to rank students based on total marks within each class.
+
+
+With T1 as(
+select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id
+),
+
+T2 as(
+select class,st_id,sum(marks) as totalmarks from T1 Group by class,st_id
+)
+select T2.*,DENSE_RANK() OVER(PARTITION BY class order by totalmarks desc) as rnk from T2;

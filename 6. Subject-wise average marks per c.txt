@@ -1,0 +1,20 @@
+6. Subject-wise average marks per class
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to calculate the average marks for each subject in every class.
+
+
+With T1 as(
+
+select s.*,m.sub, m.marks from student s left join marks m on s.st_id=m.st_id
+
+)
+
+select class, sub, avg(marks) as avg_marks from T1 group by class,sub; 

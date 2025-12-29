@@ -1,0 +1,34 @@
+4. Students who scored above class average
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to list students whose marks are above the average marks of their class.
+
+
+With T as(
+
+Select s.*,m.sub,m.marks from student s left join marks m on s.st_id=m.st_id
+
+)
+
+
+T1 as(
+
+select class,avg(marks) as avgmarks from T group by class
+)
+
+T2 as(
+
+select class,st_id,avg(marks) as avgstud from T group by class,st_id
+)
+
+select T2.* from T2 Join T1 on T2.class=T1.class and T2.avgstud>T1.avgmarks;
+
+
+

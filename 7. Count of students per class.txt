@@ -1,0 +1,11 @@
+7. Count of students per class
+Table
+
+student
+| st_id | name | class |
+
+Question
+Write a query to find the number of students in each class.
+
+
+select count(*) as st_count from student group by class

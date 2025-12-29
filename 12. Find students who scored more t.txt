@@ -1,0 +1,21 @@
+12. Find students who scored more than 90 in at least two subjects
+Tables
+
+student (st_id, name, class)
+marks (st_id, sub, marks)
+
+Question
+Write a query to list students who scored more than 90 marks in at least two subjects.
+
+st_id name class sub marks
+
+
+With T1 as
+(
+select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id where m.marks>90
+)
+
+select class,st_id,count(*) from T1 Group By class,st_id having count(*)>=2
+
+
+

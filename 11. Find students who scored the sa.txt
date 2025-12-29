@@ -1,0 +1,18 @@
+11. Find students who scored the same marks in a subject within the same class
+Tables
+
+student (st_id, name, class)
+marks (st_id, sub, marks)
+
+Question
+Write a query to find students who have duplicate marks in the same subject within the same class.
+
+
+With T1 as(
+select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id
+),
+T2 as
+(select class,sub,marks,count(*) from T1 Group By class,sub,marks Having count(*)>1
+)
+
+select T1.st_id,T1.st_name,T2.* from T2 left join T1 on T2.class=T1.class and T2.sub=T1.sub and T2.marks=T1.marks;

@@ -1,0 +1,33 @@
+18. Find top 3 students per class based on total marks
+Tables
+
+student (st_id, name, class)
+marks (st_id, sub, marks)
+
+Question
+Write a query to find the top 3 students in each class based on total marks.
+
+
+With T1 as
+( 
+  select s.*,m.sub,m.marks from student s left join marks m on s.st_id=m.st_id
+),
+
+T2 as
+(
+  Select class,st_id,sum(marks) as totalmarks from T1 Group By class,st_id
+)
+
+T3 as
+(select T2.*,DENSE_RANK() OVER(Partition By class order by totalmarks desc) as rnk from T2
+)
+
+T4 as
+(
+select T3.* from T3 where rnk<4
+)
+
+select T4.*,s.name from T4 left join student s on T4.st_id=s.st_id;
+
+
+

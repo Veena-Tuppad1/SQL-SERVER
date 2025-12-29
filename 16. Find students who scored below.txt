@@ -1,0 +1,21 @@
+16. Find students who scored below the class average in all subjects
+Tables
+
+student (st_id, name, class)
+marks (st_id, sub, marks)
+
+Question
+Write a query to find students who scored below the class average in every subject.
+
+
+With T1 as
+(
+select s.*,m.sub,m.marks from student s left join marks m on s.st_id=m.st_id
+),
+T2 as
+(
+
+Select class,sub,avg(marks) as avgmarks from T1 Group By class,sub
+)
+
+select st_id,name from T1 left join T2 on T1.class=T2.class and T1.sub =T2.sub Group By st_id,name Having SUM(case when marks>=avgmarks Then 1 else 0 end)=0

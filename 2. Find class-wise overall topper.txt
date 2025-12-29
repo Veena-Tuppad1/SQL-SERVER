@@ -1,0 +1,25 @@
+2. Find class-wise overall topper
+Tables
+
+student
+| st_id | name | class |
+
+marks
+| st_id | sub | marks |
+
+Question
+Write a query to find the overall topper (highest total marks) in each class.
+
+
+With T1 as(
+Select s.*,m.sub,m.marks from student s Left Join marks m on s.st_id=m.st_id 
+)
+
+T2 as(
+select class, st_id, sum(marks) as totalmarks from T1 Group by class,st_id
+)
+
+T3 as(
+select class,Max(totalmarks) as maxmarks from T2 Group By class)
+
+Select T2.st_id,T3.* from T3 Left Join T2  on T3.class=T2.class and T3.maxmarks=T2.totalmarks;

@@ -1,0 +1,26 @@
+4. Salary Anomaly Detection
+
+Requirement: Identify employees whose salary is greater than twice the department average.
+
+employees
+
+| emp_id | emp_name | department | salary |
+| -----: | -------- | ---------- | -----: |
+|      1 | Rahul    | IT         |  90000 |
+|      2 | Meena    | IT         | 200000 |
+|      3 | Arjun    | HR         |  60000 |
+|      4 | Kavya    | HR         |  65000 |
+
+
+
+With T1 as
+(
+ select department, avg(salary) as avgsalary from employees Group By department
+)
+
+select e.* from employees e inner join T1 on e.department=T1.department where e.salary>2*T1.avgsalary
+
+
+
+
+

@@ -1,0 +1,30 @@
+6. Latest Order per Customer
+
+Requirement: Retrieve the most recent order for each customer.
+
+orders
+
+| order_id | customer_id | order_date |
+| -------: | ----------: | ---------- |
+|       11 |         201 | 2025-01-05 |
+|       12 |         201 | 2025-02-10 |
+|       13 |         202 | 2025-01-15 |
+
+
+With T1 as(
+Select o.*,DENSE_RANK() OVER(PARTITION BY customer_id order by order_date desc) as RNK from orders o
+)
+
+select * from T1 where RNK=1
+
+
+
+-------------------------------------------------
+
+
+With T1 as
+(
+ select customer_id ,MAX(order_date) AS recentdate from orders Group By customer_id
+)
+
+select o.* from orders o Inner Join T1 on o.customer_id =T1.customer_id  where o.order_date=T1.recentdate

@@ -1,0 +1,25 @@
+2. Month-over-Month Sales Growth
+
+Requirement: Calculate monthly sales growth percentage.
+
+sales
+
+| sale_id | sale_date  | amount |
+| ------: | ---------- | -----: |
+|       1 | 2024-10-05 | 120000 |
+|       2 | 2024-11-15 | 150000 |
+|       3 | 2024-12-20 | 180000 |
+|       4 | 2025-01-10 | 160000 |
+
+
+With T1 as
+(
+  Select FORMAT(sale_date,'yyyy-MM') as month,SUM(amount) as totalsales from sales Group By FORMAT(sale_date,'yyyy-MM')
+),
+T2 as
+(
+  Select T1.*,LAG(totalsales) Over(order by month) as prevsales from T1
+)
+
+select T2.*,ROUND((totalsales-prevsales)*100.0/prevsales,2) as MOM from T2 where prevsales is not null
+

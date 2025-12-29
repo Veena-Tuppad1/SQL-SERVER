@@ -1,0 +1,15 @@
+5. Products Sold in All Regions
+
+Requirement: Find products that were sold in every available region.
+
+sales
+
+| product_id | region |
+| ---------: | ------ |
+|        301 | North  |
+|        301 | South  |
+|        301 | East   |
+|        302 | North  |
+|        302 | South  |
+
+Select product_id,COUNT(DISTINCT region) as count from sales Group By  product_id Having COUNT(DISTINCT region)=(select count(distinct region) from sales)

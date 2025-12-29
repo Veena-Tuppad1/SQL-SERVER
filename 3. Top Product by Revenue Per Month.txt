@@ -1,0 +1,25 @@
+3. Top Product by Revenue Per Month
+
+Requirement: Find the highest revenue-generating product for each month.
+
+sales
+
+| product_id | sale_date  | revenue |
+| ---------: | ---------- | ------: |
+|        201 | 2025-01-05 |   50000 |
+|        202 | 2025-01-10 |   70000 |
+|        201 | 2025-02-03 |   60000 |
+|        203 | 2025-02-12 |   90000 |
+
+
+
+With T1 as
+(
+  select FORMAT(sale_date,'yyyy-MM') as mon,product_id,sum(revenue) as totalsales from sales Group By FORMAT(sale_date,'yyyy-MM'),product_id
+),
+T2 as
+(
+  select T1.*,DENSE_RANK() OVER(PARITION BY mon order by totalsales desc) as RNK from T1
+)
+
+select * from T2 where RNK=1

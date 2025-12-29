@@ -1,0 +1,38 @@
+1. Customer Churn Analysis
+
+Requirement: Identify customers who have not placed any order in the last 6 months.
+
+customers
+
+| customer_id | customer_name |
+| ----------: | ------------- |
+|         101 | Anil          |
+|         102 | Sunita        |
+|         103 | Ramesh        |
+|         104 | Priya         |
+
+
+orders
+
+| order_id | customer_id | order_date |
+| -------: | ----------: | ---------- |
+|        1 |         101 | 2025-06-10 |
+|        2 |         101 | 2025-12-01 |
+|        3 |         102 | 2025-03-15 |
+|        4 |         103 | 2024-11-20 |
+
+
+With T1 as
+(
+  Select c.*,o.order_id,o.order_date from customers c LEFT join orders o on c.customer_id=o.customer_id
+),
+T2 as
+(
+
+select customer_id,customer_name,MAX(order_date) as recentdate from T1 Group By customer_id,customer_name
+)
+
+select * from T2 where recentdate<DATEADD(Month,-6,GETDATE()) OR recentdate is null
+
+
+

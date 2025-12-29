@@ -1,0 +1,30 @@
+Identify years with highest revenue.
+
+SALES
+
+| sale_id | sale_date  | sale_amount |
+| ------: | ---------- | ----------: |
+|    1001 | 2023-01-05 |       12000 |
+|    1002 | 2023-03-15 |       15000 |
+|    1003 | 2023-06-20 |       18000 |
+|    1004 | 2024-01-10 |       20000 |
+|    1005 | 2024-02-18 |       22000 |
+|    1006 | 2024-04-25 |       17000 |
+|    1007 | 2024-07-30 |       25000 |
+|    1008 | 2025-01-12 |       30000 |
+|    1009 | 2025-03-05 |       28000 |
+|    1010 | 2025-05-22 |       27000 |
+|    1011 | 2025-06-18 |       29000 |
+|    1012 | 2025-09-25 |       31000 |
+
+
+With T1 as
+(
+  select YEAR(sale_date) as year,SUM(sale_amount) as totalsales from sales group by YEAR(sale_date)
+)
+With T2 as
+(
+Select Max(totalsales) as maxsales from T1
+)
+
+Select T1.* from T2 INNER JOIN T1 on T2.maxsales=T1.totalsales

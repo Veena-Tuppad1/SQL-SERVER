@@ -1,0 +1,37 @@
+Find departments with average salary greater than company average.
+
+EMPLOYEES
+
+
+| emp_id | emp_name | department | salary |
+| -----: | -------- | ---------- | -----: |
+|    101 | Anil     | IT         |  95000 |
+|    102 | Sunita   | IT         |  88000 |
+|    103 | Ramesh   | IT         |  72000 |
+|    104 | Priya    | IT         |  68000 |
+|    201 | Rohit    | HR         |  60000 |
+|    202 | Meena    | HR         |  55000 |
+|    203 | Amit     | HR         |  50000 |
+|    301 | Arjun    | Finance    | 110000 |
+|    302 | Sneha    | Finance    |  98000 |
+|    303 | Kiran    | Finance    |  85000 |
+|    401 | Pooja    | Sales      |  70000 |
+|    402 | Vikas    | Sales      |  65000 |
+|    403 | Neha     | Sales      |  60000 |
+
+
+
+With T1 as 
+( 
+
+ select e.*,AVG(salary) over(partition by department) as avgsalary from Employees
+)
+
+select * from T1 where avgsalary>(select avg(salary) from EMPLOYEES)
+
+
+2nd Method
+-------
+
+select department from EMPLOYEES Group By department having avg(salary)>(select avg(Salary) from EMPLOYEES)
+

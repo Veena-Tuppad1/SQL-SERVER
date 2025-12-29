@@ -1,0 +1,27 @@
+Identify products that were never sold.
+
+PRODUCTS
+
+| product_id | product_name | category    |
+| ---------: | ------------ | ----------- |
+|          1 | Laptop       | Electronics |
+|          2 | Mobile       | Electronics |
+|          3 | Headphones   | Accessories |
+|          4 | Keyboard     | Accessories |
+|          5 | Mouse        | Accessories |
+|          6 | Monitor      | Electronics |
+
+
+SALES
+
+| sale_id | product_id | sale_date  | quantity |
+| ------: | ---------: | ---------- | -------: |
+|    1001 |          1 | 2024-01-05 |        2 |
+|    1002 |          2 | 2024-01-10 |        3 |
+|    1003 |          1 | 2024-01-15 |        1 |
+|    1004 |          3 | 2024-02-05 |        4 |
+|    1005 |          2 | 2024-02-18 |        2 |
+
+
+
+Select p.*,s.* from Products p Left Join Sales s on p.product_id=s.product_id where s.product_id is null

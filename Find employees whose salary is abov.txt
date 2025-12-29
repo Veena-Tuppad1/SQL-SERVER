@@ -1,0 +1,29 @@
+Find employees whose salary is above department average.
+
+EMPLOYEES
+
+| emp_id | emp_name | department | salary |
+| ------ | -------- | ---------- | ------ |
+| 101    | Anil     | IT         | 95000  |
+| 102    | Sunita   | IT         | 88000  |
+| 103    | Ramesh   | IT         | 72000  |
+| 104    | Priya    | IT         | 70000  |
+| 201    | Rohit    | HR         | 60000  |
+| 202    | Meena    | HR         | 55000  |
+| 203    | Amit     | HR         | 50000  |
+| 301    | Arjun    | Finance    | 110000 |
+| 302    | Sneha    | Finance    | 98000  |
+| 303    | Kiran    | Finance    | 85000  |
+| 304    | Pooja    | Finance    | 80000  |
+| 401    | Vikas    | Sales      | 70000  |
+| 402    | Neha     | Sales      | 65000  |
+| 403    | Kavya    | Sales      | 60000  |
+
+
+With  T1 as
+(
+  Select department,avg(salary) as avgsalary from EMPLOYEES Group By department
+)
+
+Select e.* from EMPLOYEES e inner join T1 t on e.department=t.department where  e.salary>t.avgsalary
+ 

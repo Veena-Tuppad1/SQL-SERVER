@@ -16,5 +16,6 @@ With T1 as(
 Select m.*,Lag(marks) Over(Partition by st_id order by sub_order) as prev_marks from marks m
 )
 
-Select st_id from T1 Group By st_id Having Min(marks-prev_marks)>0
+Select st_id from T1 WHERE prev_marks is not null Group By st_id Having Min(marks-prev_marks)>0
+
 

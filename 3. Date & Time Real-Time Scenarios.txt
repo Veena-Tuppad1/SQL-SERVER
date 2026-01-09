@@ -1,0 +1,37 @@
+3. Date & Time Real-Time Scenarios
+Table: Payments
+
+| payment_id | customer_id | payment_date | amount |
+| ---------: | ----------: | ------------ | -----: |
+|          1 |         101 | 2024-01-01   |   2000 |
+|          2 |         101 | 2024-02-01   |   2000 |
+|          3 |         101 | 2024-03-01   |   2000 |
+|          4 |         102 | 2024-01-15   |   3000 |
+
+
+Questions
+
+Identify customers who missed payments for 3 consecutive months.
+
+With T1 as
+(
+  select p.*,LAG(payment_date) OVER(partition by customer_id order by FORMAT(payment_date,'yyyy-MM') )as prevmonth from Payments p
+)
+
+Select * from T1 Where prevmonth is not null and  DATEDIFF(Month,prevmonth,payment_date)>3
+
+
+Find total payments month-wise.
+
+Select Format(payment_date,'yyyy-MM') as mon,SUM(amount) as totalsales from Payments Group By Format(payment_date,'yyyy-MM')
+
+
+
+Display customers whose last payment date is older than 60 days.
+
+With T1 as
+(
+  select customer_id,MAX(payment_date) as maxdate from Payments Group By customer_id
+)
+
+select T1.* from T1 where maxdate<DATEADD(DAY,-60,CAST(GETDATE() AS DATE))

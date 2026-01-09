@@ -1,0 +1,37 @@
+2. Window Functions (Must for 4 Years)
+
+EmployeeSalary
+
+| emp_id | emp_name | dept | salary |
+| -----: | -------- | ---- | -----: |
+|      1 | Rahul    | IT   |  60000 |
+|      2 | Anita    | IT   |  70000 |
+|      3 | Mohan    | HR   |  50000 |
+|      4 | Sneha    | HR   |  55000 |
+
+
+Rank employees by salary within each department.
+
+Select e.*,DENSE_RANK() OVER(PARTITION BY dept order by salary desc) as RNK from EmployeeSalary e
+
+
+
+Fetch the second highest salary in each department.
+
+With T1 as(
+ select e.*,DENSE_RANK() OVER(PARTITION BY DEPT ORDER BY SALARY DESC) AS RNK from EmployeeSalary e
+)
+
+Select T1.* from T1 where RNK=2
+
+
+Show salary difference between each employee and the department average salary.
+
+With T1 as
+(
+  select e.*,AVG(salary) OVER(PARTITION BY dept) as avgsalary from EmployeeSalary
+)
+
+select T1.*,(salary-avgsalary) as diff from T1 
+
+

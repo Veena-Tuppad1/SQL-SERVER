@@ -1,0 +1,29 @@
+2. Duplicate Records Detection
+
+Table: Customers
+
+customer_id	email	created_date
+
+Question:
+Identify duplicate emails and return only the latest record for each email.
+
+With T1 as
+(
+  select c.*,ROW_NUMBER() OVER(Partition by email order by created_date desc) as rnk,count(*) OVER(PARTITION BY email) as count from Customers c
+)
+
+select * from T1 where rnk=1 and count>1
+
+
+
+-----------------------------------------------------------
+
+With T1 as
+(
+  select email,MAX(created_date) AS recentdate,count(*) as count from Customer Group By email
+)
+
+select c.* from c inner join T1 on c.email=T1.email and c.created_date=T1.recentdate where count>1
+
+
+

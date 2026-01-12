@@ -1,0 +1,21 @@
+5. Top-N per Group
+
+Table: Products
+
+product_id	category	price
+
+Question:
+Retrieve the top 2 most expensive products in each category.
+
+
+With T1 as
+(
+  select p.*,DENSE_RANK() OVER(PARTITION BY category order by price desc) as rnk from Products
+)
+
+select * from T1 where rnk<3
+
+
+
+
+

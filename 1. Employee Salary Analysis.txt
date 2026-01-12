@@ -1,0 +1,35 @@
+1. Employee Salary Analysis
+
+Employees
+
+| emp_id | emp_name | department | salary | hire_date |
+| ------ | -------- | ---------- | ------ | --------- |
+
+
+Question:
+Find the second highest salary in each department.
+
+With T1 as
+(
+  select e.*,DENSE_RANK() OVER(PARTITION BY department order by salary desc) as rnk from Employees e
+)
+
+select * from T1 where rnk=2
+
+
+--------------------
+
+1️⃣ Using Subquery (Without Window Functions)
+
+SELECT *
+FROM Employees e
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM Employees
+    WHERE department = e.department
+      AND salary < (
+          SELECT MAX(salary)
+          FROM Employees
+          WHERE department = e.department
+      )
+);

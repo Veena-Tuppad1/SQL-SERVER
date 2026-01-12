@@ -1,0 +1,16 @@
+3. Running Total
+
+Table: Sales
+
+sale_id	sale_date	amount
+
+Question:
+Calculate a running total of sales amount by sale_date.
+
+
+Select s.*,SUM(amount) OVER(Order by sale_date) as Runningtotal from Sales s;
+
+
+---------------------------
+
+Select s.*,SUM(amount) Over(order by sale_date Rows Between Unbounded Preceding and current ROW) AS RunningTotal from sales            2 min

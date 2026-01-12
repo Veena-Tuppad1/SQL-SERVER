@@ -1,0 +1,29 @@
+4. Consecutive Records
+
+Table: Attendance
+
+emp_id	attendance_date	 status
+
+Question:
+Find employees who were absent for 3 consecutive days.
+
+
+With T1 as
+(
+  Select a.*,ROW_NUMBER() OVER(Partition By emp_id Order by attendance_date) as rnk from Attendance a WHERE status="Absent"
+),
+
+T2 as (
+   Select emp_id,attendance_date,DATEADD(DAY,-rnk,attendance_date) as grp from T1 
+)
+
+select emp_id,grp from T2 Group By emp_id,grp Having count(*)>2
+
+
+
+
+
+
+
+
+  

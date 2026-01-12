@@ -1,0 +1,16 @@
+6. Missing Data
+
+Table: Orders
+
+order_id	customer_id	order_date
+
+Question:
+Find customers who placed orders in 2024 but not in 2025.
+
+
+With T1 as
+(
+  select o.* from Orders o Where Year(order_date)=2024
+)
+
+select T1.*  from T1 left join orders o on T1.customer_id=o.customer_id and Year(order_date)=2025 where o.customer_id is null
